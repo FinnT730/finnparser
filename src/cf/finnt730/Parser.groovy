@@ -6,21 +6,24 @@ import groovy.transform.CompileStatic
 class Parser {
 
 
-    HashMap<Integer, Token> line_tokens = new HashMap<Integer, Token>();
+    public HashMap<Integer, Token> line_tokens = new HashMap<Integer, Token>();
+    public HashMap<Integer, String> varNames = new HashMap<>();
+    public HashMap<Integer, Double> varValues = new HashMap<>();
 
-    static void parseWords(String line) {
+    void parseWords(String line) {
         line.split(' ')
         .eachWithIndex { String entry, int i ->
             switch (entry) {
                 case "var": {
                     line_tokens[i] = Token.T_var;
-                    var varname = line.split(' ')[i + 1]
+                    varNames[i + 1] = line.split(' ')[i + 1]
 //                    return Token.T_var;
                     break;
                 }
                     case "=": {
                     // T_equals
                     line_tokens[i] = Token.T_equals;
+                    varValues[i + 1] = line.split(' ')[i + 1] as Double
                     break;
                 }
                 default : return Token.T_null;

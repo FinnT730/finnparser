@@ -8,6 +8,8 @@ public class Main {
 
     static String bytecode = "[+!+[]]+[+[]]".toLowerCase(Locale.ROOT);
 
+    static final String wordsToParse = "Hello var world hello var = 1";
+
     public static void main(String[] args) {
         System.out.println(bytecode);
 
@@ -30,8 +32,24 @@ public class Main {
         });
 
         tokens.forEach(a -> {
-            System.out.println(a);
+//            System.out.println(a);
         });
+
+
+
+        parser.parseWords(wordsToParse);
+        parser.line_tokens.forEach((index, token) -> {
+            System.out.printf("index = %s \t token = %s%n", index, token);
+        });
+        System.out.println();
+        parser.varNames.forEach((index, name) -> {
+            System.out.printf("index = %s \t name = %s%n", index, name);
+        });
+        System.out.println();
+        parser.varValues.forEach((index, value) -> {
+            System.out.printf("index = %s \t value = %s%n", index, value);
+        });
+
 
     }
 
